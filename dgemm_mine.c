@@ -1,5 +1,5 @@
 const char* dgemm_desc = "My awesome dgemm.";
-
+// this is a comment
 void square_dgemm(const int M, const double *A, const double *B, double *C)
 {
     int i, j, k;

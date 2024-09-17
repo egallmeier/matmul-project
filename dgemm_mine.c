@@ -1,5 +1,5 @@
 const char* dgemm_desc = "My awesome dgemm.";
-
+// changed loop order to j k i to take advantage of column major order 
 void square_dgemm(const int M, const double *A, const double *B, double *C)
 {
     int i, j, k;

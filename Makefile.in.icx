@@ -1,0 +1,26 @@
+# Versions to build
+BUILDS=mine basic blocked mkl
+
+# C compilers
+CC=icx
+LD=icx
+
+# Python (for plotting)
+PYTHON=python3
+
+# Compiler optimization flags.  You will definitely want to play with these!
+OPTFLAGS = -O3 -march=emeraldrapids -mavx512f -funroll-loops -ffast-math -qopt-report -lgomp 
+CFLAGS = -qopenmp
+FFLAGS =
+LDFLAGS = -qopenmp
+
+# Add -DDEBUG_RUN to CPPFLAGS to cut down on the cases.
+CPPFLAGS = "-DCOMPILER=\"$(CC)\"" "-DFLAGS=\"$(OPTFLAGS)\"" -DDEBUG_RUN
+
+# Compile a C version (using basic_dgemm.c, in this case):
+LIBS = -lm 
+OBJS = matmul.o
+
+# Libraries and include files for BLAS
+LIBMKL= -qmkl=sequential 
+INCBLAS= -qmkl=sequential

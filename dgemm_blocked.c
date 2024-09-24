@@ -37,7 +37,10 @@ void do_block(const int lda,
                 A + i + k*lda, B + k + j*lda, C + i + j*lda);
 }
 
-void square_dgemm(const int M, const double *A, const double *B, double *C)
+void square_dgemm(const int M, 
+                  const double * restrict A, 
+		  const double * restrict B, 
+		  double * restrict C)
 {
     const int n_blocks = M / BLOCK_SIZE + (M%BLOCK_SIZE? 1 : 0);
     int bi, bj, bk;

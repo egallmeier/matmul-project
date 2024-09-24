@@ -44,10 +44,9 @@ For those who aren't familiar with the Makefile system and would like an overvie
 ### Setting up your virtual machine
 
 We are going to install several packages to support this code.  For development,
-I recommend the `e2-micro` instance type that we considered in the GCP
-walkthrough on 9/10 (with Debian Bookwork as the recommended operating
-system).  For timing, we will use the `e2-highcpu-2` configuration, but you
-do not need to use this for regular development.
+I recommend the `c4-standard-2` instance type.  We will also use this for timing.
+I recommend allocating a 20 GB boot disk in order to have enough room for the
+Intel tools.
 
 With this setup, you will *need* the following packages:
 
@@ -72,6 +71,7 @@ have already done):
 
 - `llvm`: To get access to the `llvm-mca` tool
 - `google-perftools`: The Google performance tools for profiling
+- The [Intel oneAPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html?operatingsystem=linux&linux-install-type=apt) tools.
 
 Once you have installed the compiler and the OpenBlas libraries,
 building with GCC is as simple as typing `make` (or `make

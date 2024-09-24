@@ -8,7 +8,10 @@
 
 const char* dgemm_desc = "System CBLAS dgemm.";
 
-void square_dgemm(const int M, double *A, double *B, double *C)
+void square_dgemm(const int M, 
+                  const double * restrict A, 
+		  const double * restrict B, 
+		  double * restrict C)
 {
     cblas_dgemm(CblasColMajor, CblasNoTrans, CblasNoTrans,
                 M, M, M,

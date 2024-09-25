@@ -1,15 +1,16 @@
 # Versions to build
-BUILDS=mine basic blocked mkl
+BUILDS=mine basic blocked mkl 
 
 # C compilers
 CC=icx
 LD=icx
 
+
 # Python (for plotting)
 PYTHON=python3
 
 # Compiler optimization flags.  You will definitely want to play with these!
-OPTFLAGS = -O3 -march=emeraldrapids -mavx512f -funroll-loops -ffast-math -qopt-report -lgomp 
+OPTFLAGS = -O3 -march=emeraldrapids -vec -std=c99 -ffast-math -qopt-report=5 -D NOALIAS -D ALIGNED -restrict   
 CFLAGS = -qopenmp
 FFLAGS =
 LDFLAGS = -qopenmp

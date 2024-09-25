@@ -1,0 +1,229 @@
+Global optimization report for : basic_dgemm
+
+LOOP BEGIN at dgemm_blocked.c (18, 5)
+<Multiversioned v2>
+    remark #15319: Loop was not vectorized: novector directive used
+
+    LOOP BEGIN at dgemm_blocked.c (19, 9)
+        remark #15319: Loop was not vectorized: novector directive used
+
+        LOOP BEGIN at dgemm_blocked.c (21, 13)
+            remark #15319: Loop was not vectorized: novector directive used
+        LOOP END
+    LOOP END
+LOOP END
+
+LOOP BEGIN at dgemm_blocked.c (18, 5)
+    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+    LOOP BEGIN at dgemm_blocked.c (21, 13)
+        remark #15300: LOOP WAS VECTORIZED
+        remark #15305: vectorization support: vector length 4
+    LOOP END
+
+    LOOP BEGIN at dgemm_blocked.c (21, 13)
+    <Remainder loop for vectorization>
+    LOOP END
+LOOP END
+
+LOOP BEGIN at dgemm_blocked.c (18, 5)
+<Multiversioned v1>
+    remark #25228: Loop multiversioned for Data Dependence
+    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+    LOOP BEGIN at dgemm_blocked.c (19, 9)
+        remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+        LOOP BEGIN at dgemm_blocked.c (21, 13)
+            remark #15300: LOOP WAS VECTORIZED
+            remark #15305: vectorization support: vector length 4
+        LOOP END
+
+        LOOP BEGIN at dgemm_blocked.c (21, 13)
+        <Remainder loop for vectorization>
+        LOOP END
+    LOOP END
+LOOP END
+=================================================================
+
+Global optimization report for : do_block
+
+LOOP BEGIN at dgemm_blocked.c (18, 5)
+<Multiversioned v2>
+    remark #15319: Loop was not vectorized: novector directive used
+
+    LOOP BEGIN at dgemm_blocked.c (19, 9)
+        remark #15319: Loop was not vectorized: novector directive used
+
+        LOOP BEGIN at dgemm_blocked.c (21, 13)
+            remark #15319: Loop was not vectorized: novector directive used
+        LOOP END
+    LOOP END
+LOOP END
+
+LOOP BEGIN at dgemm_blocked.c (18, 5)
+<Multiversioned v1>
+    remark #25228: Loop multiversioned for Data Dependence
+    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+    LOOP BEGIN at dgemm_blocked.c (19, 9)
+        remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+        LOOP BEGIN at dgemm_blocked.c (21, 13)
+            remark #15300: LOOP WAS VECTORIZED
+            remark #15305: vectorization support: vector length 4
+        LOOP END
+
+        LOOP BEGIN at dgemm_blocked.c (21, 13)
+        <Remainder loop for vectorization>
+        LOOP END
+    LOOP END
+LOOP END
+=================================================================
+
+Global optimization report for : square_dgemm
+
+LOOP BEGIN at dgemm_blocked.c (47, 5)
+    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+    LOOP BEGIN at dgemm_blocked.c (49, 9)
+        remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+        LOOP BEGIN at dgemm_blocked.c (51, 13)
+            remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+            LOOP BEGIN at dgemm_blocked.c (18, 5)
+                remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+                LOOP BEGIN at dgemm_blocked.c (19, 9)
+                    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+                    LOOP BEGIN at dgemm_blocked.c (21, 13)
+                        remark #15300: LOOP WAS VECTORIZED
+                        remark #15305: vectorization support: vector length 4
+                    LOOP END
+
+                    LOOP BEGIN at dgemm_blocked.c (21, 13)
+                    <Remainder loop for vectorization>
+                    LOOP END
+                LOOP END
+            LOOP END
+        LOOP END
+    LOOP END
+LOOP END
+=================================================================
+
+---- Begin Inlining Report ----
+Option Values:
+  inline-threshold: 225
+  inlinehint-threshold: 325
+  inlinecold-threshold: 45
+  inlineoptsize-threshold: 15
+
+DEAD STATIC FUNC: llvm.ssa.copy.f64
+
+DEAD STATIC FUNC: llvm.ssa.copy.i64
+
+COMPILE FUNC: basic_dgemm
+   -> DELETE: llvm.stacksave.p0 dgemm_blocked.c (18,5)
+   -> llvm.stacksave.p0 dgemm_blocked.c (18,5)
+   -> DELETE: llvm.vector.reduce.fadd.v4f64 dgemm_blocked.c (22,21)
+   -> llvm.vector.reduce.fadd.v4f64 dgemm_blocked.c (22,21)
+   -> DELETE: llvm.stackrestore.p0 dgemm_blocked.c
+   -> llvm.stackrestore.p0 dgemm_blocked.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c
+   -> DELETE: llvm.ssa.copy.f64 dgemm_blocked.c (20,26)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c
+   -> DELETE: llvm.ssa.copy.f64 dgemm_blocked.c (20,26)
+   -> DELETE: llvm.ssa.copy.f64 dgemm_blocked.c (22,21)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c (19,28)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c (21,32)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c (18,24)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (24,24)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (22,37)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (22,37)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (22,37)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (20,26)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (20,26)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (24,24)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (24,24)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (22,24)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (22,24)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (22,24)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (22,24)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (20,26)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (20,26)
+   -> llvm.smax.i64 dgemm_blocked.c (24,24)
+   -> llvm.smin.i64 dgemm_blocked.c (22,37)
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_blocked.c (21,13)
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_blocked.c (21,13)
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_blocked.c (21,13)
+   -> llvm.vector.reduce.fadd.v4f64 dgemm_blocked.c (22,21)
+   -> llvm.vector.reduce.fadd.v4f64 dgemm_blocked.c (22,21)
+
+COMPILE FUNC: do_block
+   -> INLINE: basic_dgemm dgemm_blocked.c (36,5)
+   -> DELETE: llvm.vector.reduce.fadd.v4f64 dgemm_blocked.c (22,21)
+   -> llvm.vector.reduce.fadd.v4f64 dgemm_blocked.c (22,21)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c
+   -> DELETE: llvm.ssa.copy.f64 dgemm_blocked.c (20,26)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c
+   -> DELETE: llvm.ssa.copy.f64 dgemm_blocked.c (20,26)
+   -> DELETE: llvm.ssa.copy.f64 dgemm_blocked.c (22,21)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c (19,28)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c (21,32)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c (18,24)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (24,24)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (22,37)
+   -> DELETE: llvm.smin.i32 dgemm_blocked.c (34,20)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (22,37)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (22,37)
+   -> DELETE: llvm.smin.i32 dgemm_blocked.c (34,20)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (20,26)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (20,26)
+   -> DELETE: llvm.smin.i32 dgemm_blocked.c (34,20)
+   -> DELETE: llvm.smin.i32 dgemm_blocked.c (33,20)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (24,24)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (24,24)
+   -> DELETE: llvm.smin.i32 dgemm_blocked.c (34,20)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (22,24)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (22,24)
+   -> DELETE: llvm.smin.i32 dgemm_blocked.c (35,20)
+   -> DELETE: llvm.smin.i32 dgemm_blocked.c (33,20)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (22,24)
+   -> DELETE: llvm.smax.i64 dgemm_blocked.c (22,24)
+   -> DELETE: llvm.smin.i32 dgemm_blocked.c (35,20)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (20,26)
+   -> DELETE: llvm.smin.i64 dgemm_blocked.c (20,26)
+   -> DELETE: llvm.smin.i32 dgemm_blocked.c (34,20)
+   -> DELETE: llvm.smin.i32 dgemm_blocked.c
+   -> DELETE: llvm.smin.i32 dgemm_blocked.c
+   -> llvm.smin.i32 dgemm_blocked.c (33,20)
+   -> llvm.smax.i64 dgemm_blocked.c (24,24)
+   -> llvm.smin.i32 dgemm_blocked.c (34,20)
+   -> llvm.smin.i64 dgemm_blocked.c (22,37)
+   -> llvm.smin.i32 dgemm_blocked.c (35,20)
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_blocked.c (22,24)
+
+COMPILE FUNC: square_dgemm
+   -> INLINE: do_block dgemm_blocked.c (53,17)
+      -> INLINE: basic_dgemm dgemm_blocked.c (36,5)
+   -> DELETE: llvm.vector.reduce.fadd.v4f64 dgemm_blocked.c (22,21)
+   -> llvm.vector.reduce.fadd.v4f64 dgemm_blocked.c (22,21)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c (51,41)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c (18,24)
+   -> DELETE: llvm.ssa.copy.f64 dgemm_blocked.c (20,26)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c
+   -> DELETE: llvm.ssa.copy.f64 dgemm_blocked.c (20,26)
+   -> DELETE: llvm.ssa.copy.f64 dgemm_blocked.c (22,21)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c (19,28)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c (21,32)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c (49,37)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_blocked.c (47,33)
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_blocked.c (22,24)
+
+---- End Inlining Report ------

@@ -13,7 +13,7 @@
 
 const char* dgemm_desc = "My awesome dgemm."; 
 #ifndef BLOCK_SIZE
-#define BLOCK_SIZE ((int) 8)
+#define BLOCK_SIZE ((int) 32)
 #endif
 
 /*
@@ -44,15 +44,15 @@ void basic_dgemm(const int lda, const int M, const int N, const int K,
     }
 }
 
-__declspec(align(8)) static double a[BLOCK_SIZE* BLOCK_SIZE];
-__declspec(align(8)) static double b[BLOCK_SIZE*BLOCK_SIZE];
-__declspec(align(8)) static double c[BLOCK_SIZE*BLOCK_SIZE];
-//static __attribute__((aligned(8))) double a[BLOCK_SIZE*BLOCK_SIZE];
-//static __attribute__((aligned(8))) double b[BLOCK_SIZE*BLOCK_SIZE];
-//static __attribute__((aligned(8))) double c[BLOCK_SIZE*BLOCK_SIZE];
+//__declspec(align(8)) static double a[BLOCK_SIZE* BLOCK_SIZE];
+//__declspec(align(8)) static double b[BLOCK_SIZE*BLOCK_SIZE];
+//__declspec(align(8)) static double c[BLOCK_SIZE*BLOCK_SIZE];
+static __attribute__((aligned(8))) double a[BLOCK_SIZE*BLOCK_SIZE];
+static __attribute__((aligned(8))) double b[BLOCK_SIZE*BLOCK_SIZE];
+static __attribute__((aligned(8))) double c[BLOCK_SIZE*BLOCK_SIZE];
 
 void kernel_dgemm(const int lda, const int M, const int N, const int K, 
-                  const double * A , const double * B, double * C)
+                  const double * restrict A , const double * restrict B, double * restrict C)
 {
         
     for (int i = 0; i < M; i++) {
@@ -68,20 +68,20 @@ void kernel_dgemm(const int lda, const int M, const int N, const int K,
     }
         
     
-    #pragma ivdep 
+    #pragma GCC ivdep 
     #pragma vector aligned 
-    for (int i = 0; i < BLOCK_SIZE; ++i) {
-	 #pragma ivdep
+    for (int k = 0; k < BLOCK_SIZE; ++k) {
+	 #pragma GCC ivdep
 	 #pragma vector aligned 
 	 
                    
-        for (int k = 0; k < BLOCK_SIZE; ++k) {
+        for (int j = 0; j < BLOCK_SIZE; ++j) {
             
             
-            #pragma ivdep
+            #pragma GCC ivdep
 	    #pragma vector aligned
 	    #pragma vector always
-	    for (int j = 0; j < BLOCK_SIZE ; ++j) {
+	    for (int i = 0; i < BLOCK_SIZE ; ++i) {
                    
 	        c[j*BLOCK_SIZE + i]+= a[k*BLOCK_SIZE+i] * b[j*BLOCK_SIZE+k];	
 	    }

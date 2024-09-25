@@ -1,0 +1,361 @@
+Global optimization report for : basic_dgemm
+
+LOOP BEGIN at dgemm_mine.c (31, 5)
+    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+    LOOP BEGIN at dgemm_mine.c (32, 9)
+        remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+        LOOP BEGIN at dgemm_mine.c (35, 13)
+            remark #15300: LOOP WAS VECTORIZED
+            remark #15305: vectorization support: vector length 4
+        LOOP END
+
+        LOOP BEGIN at dgemm_mine.c (35, 13)
+        <Remainder loop for vectorization>
+        LOOP END
+    LOOP END
+LOOP END
+=================================================================
+
+Global optimization report for : kernel_dgemm
+
+LOOP BEGIN at dgemm_mine.c (73, 5)
+    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+    remark #25436: Loop completely unrolled by 4
+
+    LOOP BEGIN at dgemm_mine.c (78, 9)
+        remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+        remark #25436: Loop completely unrolled by 4
+
+        LOOP BEGIN at dgemm_mine.c (84, 6)
+            remark #15300: LOOP WAS VECTORIZED
+            remark #15305: vectorization support: vector length 4
+            remark #25436: Loop completely unrolled by 1
+        LOOP END
+    LOOP END
+LOOP END
+
+LOOP BEGIN at dgemm_mine.c (58, 5)
+    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+    LOOP BEGIN at dgemm_mine.c (59, 9)
+        remark #15300: LOOP WAS VECTORIZED
+        remark #15305: vectorization support: vector length 4
+    LOOP END
+
+    LOOP BEGIN at dgemm_mine.c (59, 9)
+    <Remainder loop for vectorization>
+    LOOP END
+LOOP END
+
+LOOP BEGIN at dgemm_mine.c (58, 5)
+    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+    LOOP BEGIN at dgemm_mine.c (59, 9)
+        remark #15300: LOOP WAS VECTORIZED
+        remark #15305: vectorization support: vector length 4
+        remark #25436: Loop completely unrolled by 1
+    LOOP END
+LOOP END
+
+LOOP BEGIN at dgemm_mine.c (64, 5)
+    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+    LOOP BEGIN at dgemm_mine.c (65, 2)
+        remark #15300: LOOP WAS VECTORIZED
+        remark #15305: vectorization support: vector length 4
+    LOOP END
+
+    LOOP BEGIN at dgemm_mine.c (65, 2)
+    <Remainder loop for vectorization>
+    LOOP END
+LOOP END
+
+LOOP BEGIN at dgemm_mine.c (64, 5)
+    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+    LOOP BEGIN at dgemm_mine.c (65, 2)
+        remark #15300: LOOP WAS VECTORIZED
+        remark #15305: vectorization support: vector length 4
+        remark #25436: Loop completely unrolled by 1
+    LOOP END
+LOOP END
+
+LOOP BEGIN at dgemm_mine.c (91, 5)
+    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+    LOOP BEGIN at dgemm_mine.c (92, 9)
+        remark #15344: Loop was not vectorized: vector dependence prevents vectorization
+        remark #15346: vector dependence: assumed FLOW dependence between [ /home/eg542/matmul-archive/dgemm_mine.c (93, 3) ] and [ /home/eg542/matmul-archive/dgemm_mine.c (93, 16) ] 
+    LOOP END
+LOOP END
+
+LOOP BEGIN at dgemm_mine.c (91, 5)
+    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+    remark #25583: Number of Array Refs Scalar Replaced In Loop: 2
+
+    LOOP BEGIN at dgemm_mine.c (92, 9)
+        remark #15344: Loop was not vectorized: vector dependence prevents vectorization
+        remark #15346: vector dependence: assumed FLOW dependence between [ /home/eg542/matmul-archive/dgemm_mine.c (93, 3) ] and [ /home/eg542/matmul-archive/dgemm_mine.c (93, 16) ] 
+        remark #25436: Loop completely unrolled by 4
+    LOOP END
+LOOP END
+=================================================================
+
+Global optimization report for : do_block
+=================================================================
+
+Global optimization report for : square_dgemm
+
+LOOP BEGIN at dgemm_mine.c (119, 5)
+    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+    LOOP BEGIN at dgemm_mine.c (121, 9)
+        remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+        LOOP BEGIN at dgemm_mine.c (123, 13)
+            remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+            LOOP BEGIN at dgemm_mine.c (58, 5)
+                remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+                LOOP BEGIN at dgemm_mine.c (59, 9)
+                    remark #15300: LOOP WAS VECTORIZED
+                    remark #15305: vectorization support: vector length 4
+                LOOP END
+
+                LOOP BEGIN at dgemm_mine.c (59, 9)
+                <Remainder loop for vectorization>
+                LOOP END
+            LOOP END
+
+            LOOP BEGIN at dgemm_mine.c (58, 5)
+                remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+                LOOP BEGIN at dgemm_mine.c (59, 9)
+                    remark #15300: LOOP WAS VECTORIZED
+                    remark #15305: vectorization support: vector length 4
+                    remark #25436: Loop completely unrolled by 1
+                LOOP END
+            LOOP END
+
+            LOOP BEGIN at dgemm_mine.c (64, 5)
+                remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+                LOOP BEGIN at dgemm_mine.c (65, 2)
+                    remark #15300: LOOP WAS VECTORIZED
+                    remark #15305: vectorization support: vector length 4
+                LOOP END
+
+                LOOP BEGIN at dgemm_mine.c (65, 2)
+                <Remainder loop for vectorization>
+                LOOP END
+            LOOP END
+
+            LOOP BEGIN at dgemm_mine.c (73, 5)
+                remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+                remark #25436: Loop completely unrolled by 4
+
+                LOOP BEGIN at dgemm_mine.c (78, 9)
+                    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+                    remark #25436: Loop completely unrolled by 4
+
+                    LOOP BEGIN at dgemm_mine.c (84, 6)
+                        remark #15300: LOOP WAS VECTORIZED
+                        remark #15305: vectorization support: vector length 4
+                        remark #25436: Loop completely unrolled by 1
+                    LOOP END
+                LOOP END
+            LOOP END
+
+            LOOP BEGIN at dgemm_mine.c (91, 5)
+                remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+                LOOP BEGIN at dgemm_mine.c (92, 9)
+                    remark #15344: Loop was not vectorized: vector dependence prevents vectorization
+                    remark #15346: vector dependence: assumed FLOW dependence between [ /home/eg542/matmul-archive/dgemm_mine.c (93, 3) ] and [ /home/eg542/matmul-archive/dgemm_mine.c (93, 16) ] 
+                LOOP END
+            LOOP END
+        LOOP END
+
+        LOOP BEGIN at dgemm_mine.c (123, 13)
+            remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+            LOOP BEGIN at dgemm_mine.c (58, 5)
+                remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+                LOOP BEGIN at dgemm_mine.c (59, 9)
+                    remark #15300: LOOP WAS VECTORIZED
+                    remark #15305: vectorization support: vector length 4
+                LOOP END
+
+                LOOP BEGIN at dgemm_mine.c (59, 9)
+                <Remainder loop for vectorization>
+                LOOP END
+            LOOP END
+
+            LOOP BEGIN at dgemm_mine.c (58, 5)
+                remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+                LOOP BEGIN at dgemm_mine.c (59, 9)
+                    remark #15300: LOOP WAS VECTORIZED
+                    remark #15305: vectorization support: vector length 4
+                    remark #25436: Loop completely unrolled by 1
+                LOOP END
+            LOOP END
+
+            LOOP BEGIN at dgemm_mine.c (64, 5)
+                remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+
+                LOOP BEGIN at dgemm_mine.c (65, 2)
+                    remark #15300: LOOP WAS VECTORIZED
+                    remark #15305: vectorization support: vector length 4
+                    remark #25436: Loop completely unrolled by 1
+                LOOP END
+            LOOP END
+
+            LOOP BEGIN at dgemm_mine.c (73, 5)
+                remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+                remark #25436: Loop completely unrolled by 4
+
+                LOOP BEGIN at dgemm_mine.c (78, 9)
+                    remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+                    remark #25436: Loop completely unrolled by 4
+
+                    LOOP BEGIN at dgemm_mine.c (84, 6)
+                        remark #15300: LOOP WAS VECTORIZED
+                        remark #15305: vectorization support: vector length 4
+                        remark #25436: Loop completely unrolled by 1
+                    LOOP END
+                LOOP END
+            LOOP END
+
+            LOOP BEGIN at dgemm_mine.c (91, 5)
+                remark #15541: loop was not vectorized: outer loop is not an auto-vectorization candidate.
+                remark #25583: Number of Array Refs Scalar Replaced In Loop: 2
+
+                LOOP BEGIN at dgemm_mine.c (92, 9)
+                    remark #15344: Loop was not vectorized: vector dependence prevents vectorization
+                    remark #15346: vector dependence: assumed FLOW dependence between [ /home/eg542/matmul-archive/dgemm_mine.c (93, 3) ] and [ /home/eg542/matmul-archive/dgemm_mine.c (93, 16) ] 
+                    remark #25436: Loop completely unrolled by 4
+                LOOP END
+            LOOP END
+        LOOP END
+    LOOP END
+LOOP END
+=================================================================
+
+---- Begin Inlining Report ----
+Option Values:
+  inline-threshold: 225
+  inlinehint-threshold: 325
+  inlinecold-threshold: 45
+  inlineoptsize-threshold: 15
+
+DEAD STATIC FUNC: llvm.ssa.copy.i64
+
+COMPILE FUNC: basic_dgemm
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (32,28)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (35,32)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (31,23)
+
+COMPILE FUNC: kernel_dgemm
+   -> llvm.memset.p0.i64 dgemm_mine.c (96,5)
+   -> llvm.memset.p0.i64 dgemm_mine.c (97,5)
+   -> llvm.memset.p0.i64 dgemm_mine.c (98,5)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (59,33)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (58,29)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (65,26)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (64,30)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (92,33)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (91,28)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (73,37)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (78,41)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (84,39)
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_mine.c (60,29)
+   -> llvm.masked.scatter.v4f64.v4p0 dgemm_mine.c (60,27)
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_mine.c (60,29)
+   -> llvm.masked.scatter.v4f64.v4p0 dgemm_mine.c (60,27)
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_mine.c (66,36)
+   -> llvm.masked.scatter.v4f64.v4p0 dgemm_mine.c (66,34)
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_mine.c (66,36)
+   -> llvm.masked.scatter.v4f64.v4p0 dgemm_mine.c (66,34)
+
+COMPILE FUNC: do_block
+   -> kernel_dgemm dgemm_mine.c (110,5)
+
+COMPILE FUNC: square_dgemm
+   -> INLINE: do_block dgemm_mine.c (125,17)
+      -> INLINE: kernel_dgemm dgemm_mine.c (110,5)
+         -> DELETE: llvm.memset.p0.i64 dgemm_mine.c (96,5)
+         -> DELETE: llvm.memset.p0.i64 dgemm_mine.c (97,5)
+         -> DELETE: llvm.memset.p0.i64 dgemm_mine.c (98,5)
+   -> DELETE: llvm.experimental.noalias.scope.decl dgemm_mine.c (125,17)
+   -> DELETE: llvm.experimental.noalias.scope.decl dgemm_mine.c (125,17)
+   -> DELETE: llvm.experimental.noalias.scope.decl dgemm_mine.c (125,17)
+   -> DELETE: llvm.experimental.noalias.scope.decl dgemm_mine.c (110,5)
+   -> DELETE: llvm.experimental.noalias.scope.decl dgemm_mine.c (110,5)
+   -> DELETE: llvm.experimental.noalias.scope.decl dgemm_mine.c (110,5)
+   -> DELETE: llvm.memset.p0.i64 dgemm_mine.c (96,5)
+   -> llvm.memset.p0.i64 dgemm_mine.c (96,5)
+   -> DELETE: llvm.memset.p0.i64 dgemm_mine.c (97,5)
+   -> llvm.memset.p0.i64 dgemm_mine.c (97,5)
+   -> DELETE: llvm.memset.p0.i64 dgemm_mine.c (98,5)
+   -> llvm.memset.p0.i64 dgemm_mine.c (98,5)
+   -> llvm.memset.p0.i64 dgemm_mine.c (96,5)
+   -> llvm.memset.p0.i64 dgemm_mine.c (97,5)
+   -> llvm.memset.p0.i64 dgemm_mine.c (98,5)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.experimental.noalias.scope.decl dgemm_mine.c (110,5)
+   -> DELETE: llvm.experimental.noalias.scope.decl dgemm_mine.c (110,5)
+   -> DELETE: llvm.experimental.noalias.scope.decl dgemm_mine.c (110,5)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (123,41)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (73,37)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (78,41)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (84,39)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (59,33)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (58,29)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (65,26)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (64,30)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (92,33)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (91,28)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (121,37)
+   -> DELETE: llvm.ssa.copy.i64 dgemm_mine.c (119,33)
+   -> llvm.experimental.noalias.scope.decl dgemm_mine.c
+   -> llvm.experimental.noalias.scope.decl dgemm_mine.c
+   -> llvm.experimental.noalias.scope.decl dgemm_mine.c
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_mine.c (60,29)
+   -> llvm.masked.scatter.v4f64.v4p0 dgemm_mine.c (60,27)
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_mine.c (60,29)
+   -> llvm.masked.scatter.v4f64.v4p0 dgemm_mine.c (60,27)
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_mine.c (66,36)
+   -> llvm.masked.scatter.v4f64.v4p0 dgemm_mine.c (66,34)
+   -> llvm.experimental.noalias.scope.decl dgemm_mine.c
+   -> llvm.experimental.noalias.scope.decl dgemm_mine.c
+   -> llvm.experimental.noalias.scope.decl dgemm_mine.c
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_mine.c (60,29)
+   -> llvm.masked.scatter.v4f64.v4p0 dgemm_mine.c (60,27)
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_mine.c (60,29)
+   -> llvm.masked.scatter.v4f64.v4p0 dgemm_mine.c (60,27)
+   -> llvm.masked.gather.v4f64.v4p0 dgemm_mine.c (66,36)
+   -> llvm.masked.scatter.v4f64.v4p0 dgemm_mine.c (66,34)
+
+---- End Inlining Report ------

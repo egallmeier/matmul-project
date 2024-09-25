@@ -1,0 +1,378 @@
+--- !Passed
+Pass:            licm
+Name:            Hoisted
+DebugLoc:        { File: dgemm_basic.c, Line: 12, Column: 27 }
+Function:        square_dgemm
+Args:
+  - String:          'hoisting '
+  - Inst:            icmp
+    DebugLoc:        { File: dgemm_basic.c, Line: 12, Column: 27 }
+...
+--- !Passed
+Pass:            licm
+Name:            Hoisted
+DebugLoc:        { File: dgemm_basic.c, Line: 10, Column: 23 }
+Function:        square_dgemm
+Args:
+  - String:          'hoisting '
+  - Inst:            icmp
+    DebugLoc:        { File: dgemm_basic.c, Line: 10, Column: 23 }
+...
+--- !Missed
+Pass:            slp-vectorizer
+Name:            NotPossible
+DebugLoc:        { File: dgemm_basic.c, Line: 13, Column: 35 }
+Function:        square_dgemm
+Args:
+  - String:          'Cannot SLP vectorize list: vectorization was impossible'
+  - String:          ' with available vectorization factors'
+...
+--- !Passed
+Pass:            licm
+Name:            Hoisted
+DebugLoc:        { File: dgemm_basic.c, Line: 13, Column: 24 }
+Function:        square_dgemm
+Args:
+  - String:          'hoisting '
+  - Inst:            insertelement
+    DebugLoc:        { File: dgemm_basic.c, Line: 13, Column: 24 }
+...
+--- !Passed
+Pass:            licm
+Name:            Hoisted
+DebugLoc:        { File: dgemm_basic.c, Line: 13, Column: 24 }
+Function:        square_dgemm
+Args:
+  - String:          'hoisting '
+  - Inst:            shufflevector
+    DebugLoc:        { File: dgemm_basic.c, Line: 13, Column: 24 }
+...
+--- !Passed
+Pass:            licm
+Name:            Hoisted
+DebugLoc:        { File: dgemm_basic.c, Line: 9, Column: 5 }
+Function:        square_dgemm
+Args:
+  - String:          'hoisting '
+  - Inst:            and
+    DebugLoc:        { File: dgemm_basic.c, Line: 9, Column: 5 }
+...
+--- !Passed
+Pass:            licm
+Name:            Hoisted
+DebugLoc:        { File: dgemm_basic.c, Line: 12, Column: 13 }
+Function:        square_dgemm
+Args:
+  - String:          'hoisting '
+  - Inst:            icmp
+    DebugLoc:        { File: dgemm_basic.c, Line: 12, Column: 13 }
+...
+--- !Passed
+Pass:            licm
+Name:            Hoisted
+DebugLoc:        { File: dgemm_basic.c, Line: 13, Column: 24 }
+Function:        square_dgemm
+Args:
+  - String:          'hoisting '
+  - Inst:            insertelement
+    DebugLoc:        { File: dgemm_basic.c, Line: 13, Column: 24 }
+...
+--- !Passed
+Pass:            licm
+Name:            Hoisted
+DebugLoc:        { File: dgemm_basic.c, Line: 13, Column: 24 }
+Function:        square_dgemm
+Args:
+  - String:          'hoisting '
+  - Inst:            shufflevector
+    DebugLoc:        { File: dgemm_basic.c, Line: 13, Column: 24 }
+...
+--- !Passed
+Pass:            licm
+Name:            Hoisted
+DebugLoc:        { File: dgemm_basic.c, Line: 12, Column: 13 }
+Function:        square_dgemm
+Args:
+  - String:          'hoisting '
+  - Inst:            icmp
+    DebugLoc:        { File: dgemm_basic.c, Line: 12, Column: 13 }
+...
+--- !Passed
+Pass:            licm
+Name:            Hoisted
+DebugLoc:        { File: dgemm_basic.c, Line: 9, Column: 5 }
+Function:        square_dgemm
+Args:
+  - String:          'hoisting '
+  - Inst:            and
+    DebugLoc:        { File: dgemm_basic.c, Line: 9, Column: 5 }
+...
+--- !Passed
+Pass:            licm
+Name:            Hoisted
+DebugLoc:        { File: dgemm_basic.c, Line: 12, Column: 13 }
+Function:        square_dgemm
+Args:
+  - String:          'hoisting '
+  - Inst:            icmp
+    DebugLoc:        { File: dgemm_basic.c, Line: 12, Column: 13 }
+...
+--- !Passed
+Pass:            licm
+Name:            Hoisted
+DebugLoc:        { File: dgemm_basic.c, Line: 12, Column: 13 }
+Function:        square_dgemm
+Args:
+  - String:          'hoisting '
+  - Inst:            icmp
+    DebugLoc:        { File: dgemm_basic.c, Line: 12, Column: 13 }
+...
+--- !Missed
+Pass:            regalloc
+Name:            LoopSpillReloadCopies
+DebugLoc:        { File: dgemm_basic.c, Line: 10, Column: 9 }
+Function:        square_dgemm
+Args:
+  - NumVRCopies:     '4'
+  - String:          ' virtual registers copies '
+  - TotalCopiesCost: '2.120000e+03'
+  - String:          ' total copies cost '
+  - String:          generated in loop
+...
+--- !Missed
+Pass:            regalloc
+Name:            LoopSpillReloadCopies
+DebugLoc:        { File: dgemm_basic.c, Line: 9, Column: 5 }
+Function:        square_dgemm
+Args:
+  - NumVRCopies:     '6'
+  - String:          ' virtual registers copies '
+  - TotalCopiesCost: '2.160000e+03'
+  - String:          ' total copies cost '
+  - String:          generated in loop
+...
+--- !Missed
+Pass:            regalloc
+Name:            SpillReloadCopies
+DebugLoc:        { File: dgemm_basic.c, Line: 3, Column: 1 }
+Function:        square_dgemm
+Args:
+  - NumVRCopies:     '7'
+  - String:          ' virtual registers copies '
+  - TotalCopiesCost: '2.160625e+03'
+  - String:          ' total copies cost '
+  - String:          generated in function
+...
+--- !Analysis
+Pass:            prologepilog
+Name:            StackSize
+DebugLoc:        { File: dgemm_basic.c, Line: 7, Column: 0 }
+Function:        square_dgemm
+Args:
+  - NumStackBytes:   '32'
+  - String:          ' stack bytes in function '''
+  - Function:        square_dgemm
+  - String:          ''''
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+DebugLoc:        { File: dgemm_basic.c, Line: 9, Column: 19 }
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '2'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+DebugLoc:        { File: dgemm_basic.c, Line: 9, Column: 5 }
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '13'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+DebugLoc:        { File: dgemm_basic.c, Line: 9, Column: 19 }
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '4'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+DebugLoc:        { File: dgemm_basic.c, Line: 13, Column: 24 }
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '4'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+DebugLoc:        { File: dgemm_basic.c, Line: 14, Column: 22 }
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '6'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+DebugLoc:        { File: dgemm_basic.c, Line: 11, Column: 26 }
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '6'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '2'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+DebugLoc:        { File: dgemm_basic.c, Line: 12, Column: 27 }
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '11'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+DebugLoc:        { File: dgemm_basic.c, Line: 13, Column: 21 }
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '9'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '1'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+DebugLoc:        { File: dgemm_basic.c, Line: 12, Column: 13 }
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '4'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+DebugLoc:        { File: dgemm_basic.c, Line: 13, Column: 35 }
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '7'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '4'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionMix
+DebugLoc:        { File: dgemm_basic.c, Line: 17, Column: 1 }
+Function:        square_dgemm
+Args:
+  - String:          'BasicBlock: '
+  - BasicBlock:      ''
+  - String:          "\n"
+  - String:          ''
+  - String:          ': '
+  - INST_:           '2'
+  - String:          "\n"
+...
+--- !Analysis
+Pass:            asm-printer
+Name:            InstructionCount
+DebugLoc:        { File: dgemm_basic.c, Line: 7, Column: 0 }
+Function:        square_dgemm
+Args:
+  - NumInstructions: '75'
+  - String:          ' instructions in function'
+...

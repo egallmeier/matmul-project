@@ -11,9 +11,18 @@
 #include <pmmintrin.h>
 #include <emmintrin.h>
 
-const char* dgemm_desc = "My awesome dgemm."; 
-#ifndef BLOCK_SIZE
-#define BLOCK_SIZE ((int) 32)
+const char* dgemm_desc = "Three-level blocked dgemm.";
+
+#ifndef BLOCK_SIZE_L3
+#define BLOCK_SIZE_L3 ((int) 128)
+#endif
+
+#ifndef BLOCK_SIZE_L2
+#define BLOCK_SIZE_L2 ((int) 64)
+#endif
+
+#ifndef BLOCK_SIZE_L1
+#define BLOCK_SIZE_L1 ((int) 32)
 #endif
 
 /*
@@ -23,33 +32,23 @@ const char* dgemm_desc = "My awesome dgemm.";
 
   lda is the leading dimension of the matrix (the M of square_dgemm).
 */
-
 void basic_dgemm(const int lda, const int M, const int N, const int K,
-                 const double * restrict A, const double * restrict B, double * restrict C)
+                 const double *A, const double *B, double *C)
 {
     int i, j, k;
-    for (k = 0;k < K; ++k) {
+    for (i = 0; i < M; ++i) {
         for (j = 0; j < N; ++j) {
-            
-
-            for (i = 0; i < M; ++i) {
-                double cij = C[j*lda+i];
-    
-		cij += A[k*lda+i] * B[j*lda+k];
-                C[j*lda+i] = cij;
-    
-	    }
-           
+            double cij = C[j*lda+i];
+            for (k = 0; k < K; ++k) {
+                cij += A[k*lda+i] * B[j*lda+k];
+            }
+            C[j*lda+i] = cij;
         }
     }
 }
-
-//__declspec(align(8)) static double a[BLOCK_SIZE* BLOCK_SIZE];
-//__declspec(align(8)) static double b[BLOCK_SIZE*BLOCK_SIZE];
-//__declspec(align(8)) static double c[BLOCK_SIZE*BLOCK_SIZE];
-static __attribute__((aligned(8))) double a[BLOCK_SIZE*BLOCK_SIZE];
-static __attribute__((aligned(8))) double b[BLOCK_SIZE*BLOCK_SIZE];
-static __attribute__((aligned(8))) double c[BLOCK_SIZE*BLOCK_SIZE];
+static __attribute__((aligned(8))) double a[BLOCK_SIZE_L1*BLOCK_SIZE_L1];
+static __attribute__((aligned(8))) double b[BLOCK_SIZE_L1*BLOCK_SIZE_L1];
+static __attribute__((aligned(8))) double c[BLOCK_SIZE_L1*BLOCK_SIZE_L1];
 
 void kernel_dgemm(const int lda, const int M, const int N, const int K, 
                   const double * restrict A , const double * restrict B, double * restrict C)
@@ -57,40 +56,40 @@ void kernel_dgemm(const int lda, const int M, const int N, const int K,
         
     for (int i = 0; i < M; i++) {
         for (int k = 0; k < K; k++) {
- 	    a[i + k*BLOCK_SIZE] = A[i + k*lda];
+ 	    a[i + k*BLOCK_SIZE_L1] = A[i + k*lda];
 	}
     }
     
     for (int k = 0; k < K ; k++) {
 	for (int j = 0; j < N; j++) {
-            b[ k + j*BLOCK_SIZE] = B[k + j*lda];
+            b[ k + j*BLOCK_SIZE_L1] = B[k + j*lda];
 	}
     }
         
     
-    #pragma GCC ivdep 
+    #pragma ivdep 
     #pragma vector aligned 
-    for (int k = 0; k < BLOCK_SIZE; ++k) {
-	 #pragma GCC ivdep
+    for (int k = 0; k < BLOCK_SIZE_L1; ++k) {
+	 #pragma ivdep
 	 #pragma vector aligned 
 	 
                    
-        for (int j = 0; j < BLOCK_SIZE; ++j) {
+        for (int j = 0; j < BLOCK_SIZE_L1; ++j) {
             
             
-            #pragma GCC ivdep
+        #pragma ivdep
 	    #pragma vector aligned
 	    #pragma vector always
-	    for (int i = 0; i < BLOCK_SIZE ; ++i) {
+	    for (int i = 0; i < BLOCK_SIZE_L1 ; ++i) {
                    
-	        c[j*BLOCK_SIZE + i]+= a[k*BLOCK_SIZE+i] * b[j*BLOCK_SIZE+k];	
+	        c[j*BLOCK_SIZE_L1 + i]+= a[k*BLOCK_SIZE_L1+i] * b[j*BLOCK_SIZE_L1+k];	
 	    }
 	    
          }
     }
     for (int i = 0; i < M; ++i) {
         for (int j = 0; j < N ; ++j) {
-		C[j*lda + i] += c[j*BLOCK_SIZE + i];
+		C[j*lda + i] += c[j*BLOCK_SIZE_L1 + i];
 	}
     }
     memset(c, 0, sizeof(c));
@@ -99,148 +98,68 @@ void kernel_dgemm(const int lda, const int M, const int N, const int K,
    
 }
 
-
-void do_block(const int lda,
-              const double * restrict A, const double * restrict B, double * restrict C,
-              const int i, const int j, const int k)
+void do_block_l1(const int lda, 
+                 const double *A, const double *B, double *C,
+                 const int i, const int j, const int k)
 {
-    const int M = (i+BLOCK_SIZE > lda? lda-i : BLOCK_SIZE);
-    const int N = (j+BLOCK_SIZE > lda? lda-j : BLOCK_SIZE);
-    const int K = (k+BLOCK_SIZE > lda? lda-k : BLOCK_SIZE);
-    kernel_dgemm(lda, M, N , K, A + i + k*lda, B + k + j*lda, C + i + j*lda);
-    //basic_dgemm(lda, M, N, K,
-      //   A + i + k*lda, B + k + j*lda, C + i + j*lda);
+    const int M = (i+BLOCK_SIZE_L1 > lda ? lda-i : BLOCK_SIZE_L1);
+    const int N = (j+BLOCK_SIZE_L1 > lda ? lda-j : BLOCK_SIZE_L1);
+    const int K = (k+BLOCK_SIZE_L1 > lda ? lda-k : BLOCK_SIZE_L1);
+    kernel_dgemm(lda, M, N, K,
+                A + i + k*lda, B + k + j*lda, C + i + j*lda);
 }
 
-void square_dgemm(const int M, const double * restrict A, const double * restrict B, double * restrict C)
+void do_block_l2(const int lda, 
+                 const double *A, const double *B, double *C,
+                 const int i, const int j, const int k)
 {
-    const int n_blocks = M / BLOCK_SIZE + (M%BLOCK_SIZE? 1 : 0);
+    const int n_blocks = BLOCK_SIZE_L2 / BLOCK_SIZE_L1;
     int bi, bj, bk;
     for (bi = 0; bi < n_blocks; ++bi) {
-        const int i = bi * BLOCK_SIZE;
+        const int ii = i + bi * BLOCK_SIZE_L1;
         for (bj = 0; bj < n_blocks; ++bj) {
-            const int j = bj * BLOCK_SIZE;
+            const int jj = j + bj * BLOCK_SIZE_L1;
             for (bk = 0; bk < n_blocks; ++bk) {
-                const int k = bk * BLOCK_SIZE;
-                do_block(M, A, B, C, i, j, k);
-            }
-        }
-    }
-
-}
-
-
-
-/*
-# define MAX_SIZE 145u
-# define MIN_RUNS 4
-# define MIN_SECS 0.25
-
-void matrix_init(double *A)
-{
-    for (int i = 0; i < MAX_SIZE*MAX_SIZE; ++i) 
-        A[i] = drand48();
-}
-
-
-void matrix_clear(double *C)
-{
-    memset(C, 0, MAX_SIZE * MAX_SIZE * sizeof(double));
-}
-
-
-void diff_dgemm(const int M, const double *A, const double *B, double *C)
-{
-    matrix_clear(C);
-    square_dgemm(M, A, B, C);
-    for (int i = 0; i < M; ++i) {
-        for (int j = 0; j < M; ++j) {
-            double dotprod = 0;
-            double errorbound = 0;
-            for (int k = 0; k < M; ++k) {
-                double prod = A[k*M + i] * B[j*M + k];
-                dotprod += prod;
-                errorbound += fabs(prod);
-            }
-            
-            printf(" % 0.0e", C[j*M+i]-dotprod);
-        }
-    }
-    
-}
-
-void validate_dgemm(const int M, const double *A, const double *B, double *C)
-{
-    matrix_clear(C);
-    square_dgemm(M, A, B, C);
-
-    for (int i = 0; i < M; ++i) {
-        for (int j = 0; j < M; ++j) {
-            double dotprod = 0;
-            double errorbound = 0;
-            for (int k = 0; k < M; ++k) {
-                double prod = A[k*M + i] * B[j*M + k];
-                dotprod += prod;
-                errorbound += fabs(prod);
-            }
-            errorbound *= (M * DBL_EPSILON);
-            double err = fabs(C[j*M + i] - dotprod);
-            if (err > 3*errorbound) {
-                printf("Matrix multiply failed.\n");
-                printf( "C(%d,%d) should be %lg, was %lg\n", i, j,
-                        dotprod, C[j*M + i]);
-                printf("Error of %lg, acceptable limit %lg\n",
-                        err, 3*errorbound);
-		
-                diff_dgemm(M, A, B, C);
-                exit(-1);
+                const int kk = k + bk * BLOCK_SIZE_L1;
+                do_block_l1(lda, A, B, C, ii, jj, kk);
             }
         }
     }
 }
 
-
-double time_dgemm(const int M, const double *A, const double *B, double *C)
+void do_block_l3(const int lda, 
+                 const double *A, const double *B, double *C,
+                 const int i, const int j, const int k)
 {
-    double secs = -1.0;
-    double mflops_sec;
-    int num_iterations = MIN_RUNS;
-    while (secs < MIN_SECS) {
-        matrix_clear(C);
-        double start = omp_get_wtime();
-        for (int i = 0; i < num_iterations; ++i) {
-            square_dgemm(M, A, B, C);
+    const int n_blocks = BLOCK_SIZE_L3 / BLOCK_SIZE_L2;
+    int bi, bj, bk;
+    for (bi = 0; bi < n_blocks; ++bi) {
+        const int ii = i + bi * BLOCK_SIZE_L2;
+        for (bj = 0; bj < n_blocks; ++bj) {
+            const int jj = j + bj * BLOCK_SIZE_L2;
+            for (bk = 0; bk < n_blocks; ++bk) {
+                const int kk = k + bk * BLOCK_SIZE_L2;
+                do_block_l2(lda, A, B, C, ii, jj, kk);
+            }
         }
-        double finish = omp_get_wtime();
-        double mflops = 2.0 * num_iterations * M * M * M / 1.0e6;
-        secs = finish-start;
-        mflops_sec = mflops / secs;
-        num_iterations *= 2;
     }
-    return mflops_sec;
 }
 
-
-
-int main()
+void square_dgemm(const int M, 
+                  const double * restrict A, 
+		  const double * restrict B, 
+		  double * restrict C)
 {
-	double* A = (double*) malloc(MAX_SIZE * MAX_SIZE * sizeof(double));
-	double* B  = (double*) malloc(MAX_SIZE * MAX_SIZE * sizeof(double));
-	double* C  = (double*) malloc(MAX_SIZE * MAX_SIZE * sizeof(double));
-        
-
-	matrix_init(A);
-	matrix_init(B);
-
-	const int M = MAX_SIZE;
-        printf("%f\n",time_dgemm(M,A,B,C));
-
-        validate_dgemm(M,A,B,C);
-
-	free(C);
-	free(B);
-	free(A);
-
-	return 0;
+    const int n_blocks = M / BLOCK_SIZE_L3 + (M % BLOCK_SIZE_L3 ? 1 : 0);
+    int bi, bj, bk;
+    for (bi = 0; bi < n_blocks; ++bi) {
+        const int i = bi * BLOCK_SIZE_L3;
+        for (bj = 0; bj < n_blocks; ++bj) {
+            const int j = bj * BLOCK_SIZE_L3;
+            for (bk = 0; bk < n_blocks; ++bk) {
+                const int k = bk * BLOCK_SIZE_L3;
+                do_block_l3(M, A, B, C, i, j, k);
+            }
+        }
+    }
 }
-*/
